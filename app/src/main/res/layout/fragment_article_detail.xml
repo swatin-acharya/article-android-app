@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="article"
+            type="com.interestingarticles.models.Article" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_detail_articleImage"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="fitXY"
+                app:imageFromUrl="@{article.bannerPictureUrl}"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_detail_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@{article.header}"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/iv_detail_articleImage"
+                tools:text="Header" />
+
+            <TextView
+                android:id="@+id/tv_detail_mainArticle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@{article.mainArticleString}"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_header"
+                tools:text="asdgashashasfhasfh" />
+
+            <TextView
+                android:id="@+id/tv_opinion_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Opinion"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_mainArticle"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tv_opinion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@{article.opinion}"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_opinion_header"
+                tools:text="asdgashdgs" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>
