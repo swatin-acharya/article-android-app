@@ -1,6 +1,6 @@
-package com.interestingarticles.di.modules
+package com.interestingarticles.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.interestingarticles.database.AppDatabase
 import com.interestingarticles.database.ArticleDao
@@ -18,7 +18,7 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    internal fun provideAppDatabaseInstance(@ApplicationContext context: Application): AppDatabase {
+    internal fun provideAppDatabaseInstance(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).build()
     }
 

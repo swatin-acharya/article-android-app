@@ -1,6 +1,7 @@
-package com.interestingarticles.di.modules
+package com.interestingarticles.di
 
 import com.interestingarticles.network.Api
+import com.interestingarticles.network.AppNetwork
 import com.interestingarticles.utils.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -17,10 +18,7 @@ object NetworkModule {
     @Provides
     @Singleton
     internal fun provideRetrofitInstance(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        return AppNetwork.getInstance()
     }
 
     @Provides

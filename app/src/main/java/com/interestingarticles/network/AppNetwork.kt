@@ -13,7 +13,7 @@ abstract class AppNetwork {
 
     companion object {
 
-        fun getInstance(): Api {
+        fun getInstance(): Retrofit {
 
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.BODY
@@ -39,7 +39,6 @@ abstract class AppNetwork {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build()
-                .create(Api::class.java)
         }
     }
 }

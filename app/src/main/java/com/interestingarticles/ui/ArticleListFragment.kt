@@ -1,12 +1,11 @@
 package com.interestingarticles.ui
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,14 +13,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.interestingarticles.R
 import com.interestingarticles.databinding.FragmentArticleListBinding
 import com.interestingarticles.models.Article
-import com.interestingarticles.repository.ArticleRepo
 import com.interestingarticles.viewmodels.ArticleViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ArticleListFragment : Fragment(), ArticleAdapter.OnItemClickListener {
 
     private lateinit var binding: FragmentArticleListBinding
-    private lateinit var articleRepo: ArticleRepo
-    private lateinit var articleViewModel: ArticleViewModel
+    private val articleViewModel: ArticleViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,22 +40,17 @@ class ArticleListFragment : Fragment(), ArticleAdapter.OnItemClickListener {
             )
         )
 
-        articleRepo = ArticleRepo(activity?.applicationContext as Application)
-        articleViewModel = ViewModelProviders.of(
-            activity as MainActivity,
-            ArticleViewModel.FACTORY(articleRepo)
-        ).get(ArticleViewModel::class.java)
-        articleViewModel.spinner.observe(this) { show ->
+        articleViewModel.spinner.observe(viewLifecycleOwner) { show ->
             binding.spinner.visibility = if (show) View.VISIBLE else View.GONE
         }
-        articleViewModel.snackBar.observe(this) { text ->
+        articleViewModel.snackBar.observe(viewLifecycleOwner) { text ->
             text?.let {
                 makeSnackBar(binding.root, text)
             }
         }
         val adapter = ArticleAdapter(this)
         binding.articleList.adapter = adapter
-        articleViewModel.articleList.observe(this) { articles ->
+        articleViewModel.articleList.observe(viewLifecycleOwner) { articles ->
             adapter.submitList(articles)
         }
 

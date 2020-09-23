@@ -1,17 +1,19 @@
 package com.interestingarticles.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
-import com.interestingarticles.database.AppDatabase
+import com.interestingarticles.database.ArticleDao
 import com.interestingarticles.models.Article
-import com.interestingarticles.network.AppNetwork
+import com.interestingarticles.network.Api
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ArticleRepo(application: Application) {
+@Singleton
+class ArticleRepo @Inject constructor(
+    private val articleApi: Api,
+    private val articleDao: ArticleDao
+) {
 
     private val MINIMUM_INTERVAL = 6
-
-    private var articleDao = AppDatabase.getInstance(application).articleDao
-    private var articleApi = AppNetwork.getInstance()
 
     fun getAllArticles(): LiveData<List<Article>> {
         return articleDao.getArticles()
